@@ -94,6 +94,6 @@ public class Reiziger implements Identifable, Serializable {
 
     @Override
     public String toString() {
-        return  voornaam +  " " + achternaam + " woont in " + plaats;
+        return voornaam +  " " + achternaam + " woont in " + plaats;
     }
 }
