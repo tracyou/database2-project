@@ -18,14 +18,14 @@ public class MySQLReizigers extends MySQL<Reiziger> {
 
     private void load() {
 
-        String sql = "SELECT * FROM Reiziger";
+        String sql = "SELECT * FROM reiziger";
 
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
 
             while (rs.next()) {
-                String reizigersCode = rs.getString("reizigerCode");
+                String reizigersCode = rs.getString("`reizigers code`");
                 String voornaam = rs.getString("voornaam");
                 String achternaam = rs.getString("achternaam");
                 String adres = rs.getString("adres");
