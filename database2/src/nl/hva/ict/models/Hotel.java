@@ -12,10 +12,10 @@ public class Hotel implements Identifable, Serializable {
     private String kamer;
     private double prijsPerNacht;
     private int personen;
-    private boolean ontbijt;
+    private String ontbijt;
 
     public Hotel(String accommodatieCode, String naam, String stad, String land, String kamer,
-                 double prijsPerNacht, int personen, boolean ontbijt) {
+                 double prijsPerNacht, int personen, String ontbijt) {
         this.accommodatieCode = accommodatieCode;
         this.naam = naam;
         this.stad = stad;
@@ -82,11 +82,11 @@ public class Hotel implements Identifable, Serializable {
         this.personen = personen;
     }
 
-    public boolean isOntbijt() {
+    public String isOntbijt() {
         return ontbijt;
     }
 
-    public void setOntbijt(boolean ontbijt) {
+    public void setOntbijt(String ontbijt) {
         this.ontbijt = ontbijt;
     }
 

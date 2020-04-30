@@ -13,7 +13,19 @@ public class Lodge implements Identifable, Serializable {
     private String kamer;
     private double prijsPerWeek;
     private int personen;
-    private boolean autoHuur;
+    private String autoHuur;
+
+    public Lodge(String accommodatieCode, String naam, String stad, String land
+            , String kamer, double prijsPerWeek, int personen, String autoHuur) {
+        this.accommodatieCode = accommodatieCode;
+        this.naam = naam;
+        this.stad = stad;
+        this.land = land;
+        this.kamer = kamer;
+        this.prijsPerWeek = prijsPerWeek;
+        this.personen = personen;
+        this.autoHuur = autoHuur;
+    }
 
     public String getAccommodatieCode() {
         return accommodatieCode;
@@ -71,11 +83,11 @@ public class Lodge implements Identifable, Serializable {
         this.personen = personen;
     }
 
-    public boolean isAutoHuur() {
+    public String isAutoHuur() {
         return autoHuur;
     }
 
-    public void setAutoHuur(boolean autoHuur) {
+    public void setAutoHuur(String autoHuur) {
         this.autoHuur = autoHuur;
     }
 

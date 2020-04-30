@@ -28,7 +28,7 @@ public class LodgeController extends Controller {
 
     private void loadData(){
         //haal de waardes op uit de database
-        lodges = FXCollections.observableArrayList(MainApplication.getMySQLReizigers().getAll());
+        lodges = FXCollections.observableArrayList(MainApplication.getMySQLLogdes().getAll());
         lodgeView.getLodgeViewListView().setItems(lodges);
         lodgeView.getComboReistSamenMet().getSelectionModel().select(null);
     }

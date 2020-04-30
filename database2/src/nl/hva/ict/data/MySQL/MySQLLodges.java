@@ -30,6 +30,16 @@ public class MySQLLodges extends MySQL<Lodge>{
 
             while (rs.next()){
                 String accomodatieCode = rs.getString("`accomodatie code`");
+                String naam = rs.getString("naam");
+                String stad = rs.getString("stad");
+                String land = rs.getString("land");
+                String kamer = rs.getString("kamer");
+                double prijs = rs.getDouble("`prijs per week`");
+                int personen = rs.getInt("personen");
+                String autoHuur = rs.getString("`auto huur`");
+
+                Lodge lodge = new Lodge(accomodatieCode, naam, stad, land, kamer, prijs, personen,autoHuur);
+                lodges.add(lodge);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,7 +49,7 @@ public class MySQLLodges extends MySQL<Lodge>{
 
     @Override
     public List<Lodge> getAll() {
-        return null;
+        return lodges;
     }
 
     @Override
@@ -60,5 +70,10 @@ public class MySQLLodges extends MySQL<Lodge>{
     @Override
     public void remove(Lodge object) {
 
+    }
+
+    public void reload(){
+        lodges.clear();
+        load();
     }
 }
