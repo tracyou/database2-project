@@ -1,5 +1,6 @@
 package nl.hva.ict.data.MySQL;
 
+import nl.hva.ict.models.Hotel;
 import nl.hva.ict.models.Lodge;
 
 import java.sql.PreparedStatement;
@@ -8,21 +9,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLLodges extends MySQL<Lodge>{
+public class MySQLHotels extends MySQL<Hotel>{
 
-    private List<Lodge> lodges;
+    private List<Hotel> hotels;
 
-    public MySQLLodges(){
-        lodges =  new ArrayList<>();
+    public MySQLHotels(){
+        hotels = new ArrayList<>();
         load();
     }
 
     private void load() {
-
         String sql = "SELECT accomodatie.`accommodatie code`, accomodatie.naam, accomodatie.stad, accomodatie.land, accomodatie.kamer" +
-                ", accomodatie.personen, `safari lodge`.`prijs per week`, `safari lodge`.`auto huur`" +
-                "FROM `safari lodge`" +
-                "INNER JOIN accomodatie ON `safari lodge`.`accommodatie code` = accomodatie.`accommodatie code`";
+                ", accomodatie.personen, hotel.`prijs per nacht`, hotel.`ontbijt`" +
+                "FROM hotel" +
+                "INNER JOIN accomodatie ON hotel.`accommodatie code` = accomodatie.`accommodatie code`";
 
         try {
             PreparedStatement ps = getStatement(sql);
@@ -34,46 +34,45 @@ public class MySQLLodges extends MySQL<Lodge>{
                 String stad = rs.getString("stad");
                 String land = rs.getString("land");
                 String kamer = rs.getString("kamer");
-                double prijs = rs.getDouble("prijs per week");
+                double prijs = rs.getDouble("prijs per nacht");
                 int personen = rs.getInt("personen");
-                String autoHuur = rs.getString("auto huur");
+                String ontbijt = rs.getString("ontbijt");
 
-                Lodge lodge = new Lodge(accomodatieCode, naam, stad, land, kamer, prijs, personen,autoHuur);
-                lodges.add(lodge);
+                Hotel hotel = new Hotel(accomodatieCode, naam, stad, land, kamer, prijs, personen, ontbijt);
+                hotels.add(hotel);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public List<Lodge> getAll() {
-        return lodges;
+    public List<Hotel> getAll() {
+        return hotels;
     }
 
     @Override
-    public Lodge get(String id) {
+    public Hotel get(String id) {
         return null;
     }
 
     @Override
-    public void add(Lodge object) {
+    public void add(Hotel object) {
 
     }
 
     @Override
-    public void update(Lodge object) {
+    public void update(Hotel object) {
 
     }
 
     @Override
-    public void remove(Lodge object) {
+    public void remove(Hotel object) {
 
     }
 
     public void reload(){
-        lodges.clear();
+        hotels.clear();
         load();
     }
 }

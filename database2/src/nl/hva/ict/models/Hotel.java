@@ -66,23 +66,23 @@ public class Hotel implements Identifable, Serializable {
         this.kamer = kamer;
     }
 
-    public double getPrijsPerNacht() {
-        return prijsPerNacht;
+    public String getPrijsPerNacht() {
+        return String.valueOf(prijsPerNacht);
     }
 
     public void setPrijsPerNacht(double prijsPerNacht) {
         this.prijsPerNacht = prijsPerNacht;
     }
 
-    public int getPersonen() {
-        return personen;
+    public String getPersonen() {
+        return String.valueOf(personen);
     }
 
     public void setPersonen(int personen) {
         this.personen = personen;
     }
 
-    public String isOntbijt() {
+    public String getOntbijt() {
         return ontbijt;
     }
 

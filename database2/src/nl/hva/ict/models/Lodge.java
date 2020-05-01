@@ -67,23 +67,23 @@ public class Lodge implements Identifable, Serializable {
         this.kamer = kamer;
     }
 
-    public double getPrijsPerWeek() {
-        return prijsPerWeek;
+    public String getPrijsPerWeek() {
+        return String.valueOf(prijsPerWeek);
     }
 
     public void setPrijsPerWeek(double prijsPerWeek) {
         this.prijsPerWeek = prijsPerWeek;
     }
 
-    public int getPersonen() {
-        return personen;
+    public String getPersonen() {
+        return String.valueOf(personen);
     }
 
     public void setPersonen(int personen) {
         this.personen = personen;
     }
 
-    public String isAutoHuur() {
+    public String getAutoHuur() {
         return autoHuur;
     }
 

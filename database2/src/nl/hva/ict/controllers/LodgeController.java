@@ -17,8 +17,6 @@ public class LodgeController extends Controller {
         lodgeView = new LodgeView();
         lodgeView.getLodgeViewListView().getSelectionModel().selectedItemProperty()
                 .addListener(e -> getItemsInFields());
-        lodgeView.getComboReistSamenMet().getSelectionModel().selectedItemProperty()
-                .addListener(e -> getItemsComboBox());
         lodgeView.getBtSave().setOnAction(e-> save());
         lodgeView.getBtUpdateData().setOnAction(e-> refreshData());
         lodgeView.getBtNew().setOnAction(e-> insert());
@@ -28,13 +26,12 @@ public class LodgeController extends Controller {
 
     private void loadData(){
         //haal de waardes op uit de database
-        lodges = FXCollections.observableArrayList(MainApplication.getMySQLLogdes().getAll());
+        lodges = FXCollections.observableArrayList(MainApplication.getMySQLLodges().getAll());
         lodgeView.getLodgeViewListView().setItems(lodges);
-        lodgeView.getComboReistSamenMet().getSelectionModel().select(null);
     }
 
     private void refreshData(){
-        MainApplication.getMySQLReizigers().reload();
+        MainApplication.getMySQLLodges().reload();
     }
 
     private void save(){
@@ -50,14 +47,15 @@ public class LodgeController extends Controller {
     }
 
     private void getItemsInFields(){
-        Reiziger currentReiziger = lodgeView.getReizigersViewListView().getSelectionModel().getSelectedItem();
-        lodgeView.getTxtReizigersCode().setText(currentReiziger.getReizigersCode());
-        lodgeView.getTxtVoornaam().setText(currentReiziger.getVoornaam());
-        lodgeView.getTxtAchternaam().setText(currentReiziger.getAchternaam());
-        lodgeView.getTxtAdres().setText(currentReiziger.getAdres());
-        lodgeView.getTxtPostcode().setText(currentReiziger.getPostcode());
-        lodgeView.getTxtPlaats().setText(currentReiziger.getPlaats());
-        lodgeView.getTxtLand().setText(currentReiziger.getLand());
+        Lodge currentLodge = lodgeView.getLodgeViewListView().getSelectionModel().getSelectedItem();
+        lodgeView.getTxtAccommodatieCode().setText(currentLodge.getAccommodatieCode());
+        lodgeView.getTxtNaam().setText(currentLodge.getNaam());
+        lodgeView.getTxtStad().setText(currentLodge.getStad());
+        lodgeView.getTxtLand().setText(currentLodge.getLand());
+        lodgeView.getTxtKamertype().setText(currentLodge.getKamer());
+        lodgeView.getTxtPrijsPerWeek().setText(currentLodge.getPrijsPerWeek());
+        lodgeView.getTxtAantalPersonen().setText(currentLodge.getPersonen());
+        lodgeView.getCheckAutohuur().setText(currentLodge.getAutoHuur());
     }
 
     private void getItemsComboBox(){
