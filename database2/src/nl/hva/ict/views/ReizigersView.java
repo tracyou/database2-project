@@ -24,7 +24,7 @@ public class ReizigersView extends View {
     private Button btSave;
     private Button btUpdateData;
     private ListView<Reiziger> reizigersViewListView;
-    private GridPane rootPane;
+    private final GridPane rootPane;
 
     public ReizigersView() {
         rootPane = new GridPane();

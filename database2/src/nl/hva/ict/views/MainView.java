@@ -14,7 +14,7 @@ import nl.hva.ict.MainApplication;
 
 public class MainView extends View {
 
-    private MenuBar menuBar;
+    private final MenuBar menuBar;
     private BorderPane borderPane;
     private Menu fileMenu;
     private MenuItem closeMenuItem;

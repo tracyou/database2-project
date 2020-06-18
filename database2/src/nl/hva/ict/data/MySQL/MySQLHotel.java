@@ -9,36 +9,35 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLHotels extends MySQL<Hotel>{
+public class MySQLHotel extends MySQL<Hotel>{
 
     private List<Hotel> hotels;
 
-    public MySQLHotels(){
+    public MySQLHotel(){
         hotels = new ArrayList<>();
         load();
     }
 
     private void load() {
-        String sql = "SELECT accomodatie.`accommodatie code`, accomodatie.naam, accomodatie.stad, accomodatie.land, accomodatie.kamer" +
-                ", accomodatie.personen, hotel.`prijs per nacht`, hotel.`ontbijt`" +
-                "FROM hotel" +
-                "INNER JOIN accomodatie ON hotel.`accommodatie code` = accomodatie.`accommodatie code`";
+        String sql = "SELECT accomodatie.accomodatieCode, accomodatie.naam, accomodatie.stad, accomodatie.land, accomodatie.kamer, " +
+                "accomodatie.personen, hotel.prijsPerNacht, hotel.ontbijt FROM hotel " +
+                "INNER JOIN accomodatie ON hotel.accomodatieCode = accomodatie.accomodatieCode";
 
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
 
             while (rs.next()){
-                String accomodatieCode = rs.getString("accomodatie code");
+                String accomodatieCode = rs.getString("accomodatieCode");
                 String naam = rs.getString("naam");
                 String stad = rs.getString("stad");
                 String land = rs.getString("land");
                 String kamer = rs.getString("kamer");
-                double prijs = rs.getDouble("prijs per nacht");
+                double prijs = rs.getDouble("prijsPerNacht");
                 int personen = rs.getInt("personen");
                 String ontbijt = rs.getString("ontbijt");
 
-                Hotel hotel = new Hotel(accomodatieCode, naam, stad, land, kamer, prijs, personen, ontbijt);
+                Hotel hotel = new Hotel(accomodatieCode, naam, stad, land, kamer, personen, null, prijs, ontbijt);
                 hotels.add(hotel);
             }
         } catch (SQLException e) {
@@ -68,7 +67,19 @@ public class MySQLHotels extends MySQL<Hotel>{
 
     @Override
     public void remove(Hotel object) {
+        String sql = "{call verwijderAccommodatie('"+ object +")}";
 
+        if (object == null)
+            return;
+
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, object.getAccommodatieCode());
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            reload();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reload(){

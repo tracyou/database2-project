@@ -4,67 +4,19 @@ import nl.hva.ict.data.Identifable;
 
 import java.io.Serializable;
 
-public class Lodge implements Identifable, Serializable {
+public class Lodge extends Accommodatie implements Identifable, Serializable {
 
-    private String accommodatieCode;
-    private String naam;
-    private String stad;
-    private String land;
-    private String kamer;
     private double prijsPerWeek;
-    private int personen;
     private String autoHuur;
 
-    public Lodge(String accommodatieCode, String naam, String stad, String land
-            , String kamer, double prijsPerWeek, int personen, String autoHuur) {
-        this.accommodatieCode = accommodatieCode;
-        this.naam = naam;
-        this.stad = stad;
-        this.land = land;
-        this.kamer = kamer;
+    public Lodge(String accommodatieCode, String naam, String stad, String land, String kamer, int personen, String soort, double prijsPerWeek, String autoHuur) {
+        super(accommodatieCode, naam, stad, land, kamer, personen, soort);
         this.prijsPerWeek = prijsPerWeek;
-        this.personen = personen;
         this.autoHuur = autoHuur;
     }
 
-    public String getAccommodatieCode() {
-        return accommodatieCode;
-    }
+    public Lodge() {
 
-    public void setAccommodatieCode(String accommodatieCode) {
-        this.accommodatieCode = accommodatieCode;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getStad() {
-        return stad;
-    }
-
-    public void setStad(String stad) {
-        this.stad = stad;
-    }
-
-    public String getLand() {
-        return land;
-    }
-
-    public void setLand(String land) {
-        this.land = land;
-    }
-
-    public String getKamer() {
-        return kamer;
-    }
-
-    public void setKamer(String kamer) {
-        this.kamer = kamer;
     }
 
     public String getPrijsPerWeek() {
@@ -75,24 +27,11 @@ public class Lodge implements Identifable, Serializable {
         this.prijsPerWeek = prijsPerWeek;
     }
 
-    public String getPersonen() {
-        return String.valueOf(personen);
-    }
-
-    public void setPersonen(int personen) {
-        this.personen = personen;
-    }
-
     public String getAutoHuur() {
         return autoHuur;
     }
 
     public void setAutoHuur(String autoHuur) {
         this.autoHuur = autoHuur;
-    }
-
-    @Override
-    public String toString() {
-        return "Logde: " + accommodatieCode + " " + naam + " " + stad;
     }
 }

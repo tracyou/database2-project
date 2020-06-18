@@ -26,7 +26,7 @@ public class HotelView extends View {
     private Button btSave;
     private Button btUpdateData;
     private ListView<Hotel> hotelsViewListView;
-    private GridPane rootPane;
+    private final GridPane rootPane;
 
     public HotelView() {
         rootPane = new GridPane();

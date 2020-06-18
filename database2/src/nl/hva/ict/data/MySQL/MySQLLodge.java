@@ -8,37 +8,36 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLLodges extends MySQL<Lodge>{
+public class MySQLLodge extends MySQL<Lodge>{
 
     private List<Lodge> lodges;
 
-    public MySQLLodges(){
+    public MySQLLodge(){
         lodges =  new ArrayList<>();
         load();
     }
 
     private void load() {
 
-        String sql = "SELECT accomodatie.`accommodatie code`, accomodatie.naam, accomodatie.stad, accomodatie.land, accomodatie.kamer" +
-                ", accomodatie.personen, `safari lodge`.`prijs per week`, `safari lodge`.`auto huur`" +
-                "FROM `safari lodge`" +
-                "INNER JOIN accomodatie ON `safari lodge`.`accommodatie code` = accomodatie.`accommodatie code`";
+        String sql = "SELECT accomodatie.accomodatieCode, accomodatie.naam, accomodatie.stad, accomodatie.land, accomodatie.kamer, " +
+                "accomodatie.personen, safarilodge.prijsPerWeek, safarilodge.autoHuur " +
+                "FROM safarilodge INNER JOIN accomodatie ON accomodatie.accomodatieCode = safarilodge.accomodatieCode";
 
         try {
             PreparedStatement ps = getStatement(sql);
             ResultSet rs = executeSelectPreparedStatement(ps);
 
             while (rs.next()){
-                String accomodatieCode = rs.getString("accomodatie code");
+                String accomodatieCode = rs.getString("accomodatieCode");
                 String naam = rs.getString("naam");
                 String stad = rs.getString("stad");
                 String land = rs.getString("land");
                 String kamer = rs.getString("kamer");
-                double prijs = rs.getDouble("prijs per week");
+                double prijs = rs.getDouble("prijsPerWeek");
                 int personen = rs.getInt("personen");
-                String autoHuur = rs.getString("auto huur");
+                String autoHuur = rs.getString("autoHuur");
 
-                Lodge lodge = new Lodge(accomodatieCode, naam, stad, land, kamer, prijs, personen,autoHuur);
+                Lodge lodge = new Lodge(accomodatieCode, naam, stad, land, kamer, personen,null, prijs,autoHuur);
                 lodges.add(lodge);
             }
         } catch (SQLException e) {
@@ -69,7 +68,19 @@ public class MySQLLodges extends MySQL<Lodge>{
 
     @Override
     public void remove(Lodge object) {
+        String sql = "{call verwijderAccommodatie('"+ object +")}";
 
+        if (object == null)
+            return;
+
+        try {
+            PreparedStatement ps = getStatement(sql);
+            ps.setString(1, object.getAccommodatieCode());
+            ResultSet rs = executeSelectPreparedStatement(ps);
+            reload();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void reload(){

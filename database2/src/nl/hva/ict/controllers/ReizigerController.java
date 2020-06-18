@@ -25,12 +25,17 @@ public class ReizigerController extends Controller {
         loadData();
     }
 
-    private void loadData(){
-        //haal de waardes op uit de database
+    private void loadData() {
+        //haal de waardes op uit de database voor MySQL
         reizigers = FXCollections.observableArrayList(MainApplication.getMySQLReizigers().getAll());
+
+        // voor NOSQL
+        reizigers = FXCollections.observableArrayList(MainApplication.getMongoDBReizigers().getAll());
+
         reizigersView.getReizigersViewListView().setItems(reizigers);
         reizigersView.getComboReistSamenMet().getSelectionModel().select(null);
     }
+
 
 
     private void refreshData(){

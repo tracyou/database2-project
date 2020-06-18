@@ -26,12 +26,12 @@ public class HotelController extends Controller {
     }
 
     private void loadData() {
-        hotels = FXCollections.observableArrayList(MainApplication.getMySQLHotels().getAll());
+        hotels = FXCollections.observableArrayList(MainApplication.getMySQLHotel().getAll());
         hotelView.getHotelsViewListView().setItems(hotels);
     }
 
     private void refreshData(){
-        MainApplication.getMySQLHotels().reload();
+        MainApplication.getMySQLHotel().reload();
     }
 
     private void save(){
@@ -39,7 +39,8 @@ public class HotelController extends Controller {
     }
 
     private void delete(){
-        // delete dit record
+        Hotel currentHotel = hotelView.getHotelsViewListView().getSelectionModel().getSelectedItem();
+        MainApplication.getMySQLHotel().remove(currentHotel);
     }
 
     private void insert(){
@@ -53,12 +54,12 @@ public class HotelController extends Controller {
         hotelView.getTxtStad().setText(currentHotel.getStad());
         hotelView.getTxtKamertype().setText(currentHotel.getKamer());
         hotelView.getTxtPrijsPerNacht().setText(currentHotel.getPrijsPerNacht());
-        hotelView.getTxtAantalPersonen().setText(currentHotel.getPersonen());
+        hotelView.getTxtAantalPersonen().setText(String.valueOf(currentHotel.getPersonen()));
         hotelView.getCheckOntbijt().setText(currentHotel.getOntbijt());
     }
 
     @Override
     public View getView() {
-        return null;
+        return hotelView;
     }
 }

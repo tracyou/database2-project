@@ -24,7 +24,7 @@ public class LodgeView extends View {
     private Button btSave;
     private Button btUpdateData;
     private ListView<Lodge> lodgeViewListView;
-    private GridPane rootPane;
+    private final GridPane rootPane;
 
     public LodgeView() {
         rootPane = new GridPane();
@@ -63,7 +63,7 @@ public class LodgeView extends View {
         leftPane.add(txtStad, 1, 2);
         leftPane.add(new Label("Land"), 0, 3);
         leftPane.add(txtLand, 1, 3);
-        leftPane.add(new Label("Prijs per nacht"), 0, 4);
+        leftPane.add(new Label("Prijs per week"), 0, 4);
         leftPane.add(txtPrijsPerWeek, 1, 4);
         leftPane.add(new Label("Kamertype"), 0, 5);
         leftPane.add(txtKamertype, 1, 5);

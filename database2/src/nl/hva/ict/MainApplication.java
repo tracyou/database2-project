@@ -7,9 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import nl.hva.ict.controllers.MainController;
-import nl.hva.ict.data.MySQL.MySQLHotels;
-import nl.hva.ict.data.MySQL.MySQLLodges;
-import nl.hva.ict.data.MySQL.MySQLReizigers;
+import nl.hva.ict.data.Data;
+import nl.hva.ict.data.MongoDB.MongoReizigers;
+import nl.hva.ict.data.MySQL.*;
 
 public class MainApplication extends Application {
 
@@ -21,19 +21,24 @@ public class MainApplication extends Application {
     private static final String MYSQL_PASSWORD = "Tracy";
 
     //Mongo NoSQL
-    private static final String NOSQL_HOST = "mongodb://host1:27017";
-    private static final String NOSQL_DATABASE = "";
+    private static final String NOSQL_HOST = "mongodb+srv://tracy:tracy@cluster0-4gzmp.azure.mongodb.net/big_five_safari?retryWrites=true&w=majority";
+    private static final String NOSQL_DATABASE = "big_five_safari";
 
     //JavaFX
     private static Stage stage;
     private static MainController mainController;
+    private static final MySQLReizigers mySQLReizigers = new MySQLReizigers();
+    private static final MySQLLodge mySQLLodge = new MySQLLodge();
 
     //Static dataconnectors
-    private static MySQLReizigers mySQLReizigers = new MySQLReizigers();
-    private static MySQLLodges mySQLLodges = new MySQLLodges();
-    private static MySQLHotels mySQLHotels = new MySQLHotels();
+    private static final MySQLHotel mySQLHotel = new MySQLHotel();
+    private static final MySQLAccommodatie mySQLAccommodatie = new MySQLAccommodatie();
+    private static final MySQLBoekingsOverzicht mySQLBoekingsOverzicht = new MySQLBoekingsOverzicht();
+
+    private static final MongoReizigers mongoDBReizigers = new MongoReizigers();
     private final int WIDTH = 800;
     private final int HEIGHT = 800;
+
 
     public static void switchController(Parent pane) {
         mainController.getBorderPane().setCenter(pane);
@@ -65,9 +70,25 @@ public class MainApplication extends Application {
 
     public static MySQLReizigers getMySQLReizigers() { return mySQLReizigers; }
 
-    public static MySQLLodges getMySQLLodges(){return mySQLLodges;}
+    public static MySQLLodge getMySQLLodge() {
+        return mySQLLodge;
+    }
 
-    public static MySQLHotels getMySQLHotels(){return mySQLHotels;}
+    public static MySQLHotel getMySQLHotel() {
+        return mySQLHotel;
+    }
+
+    public static MySQLBoekingsOverzicht getMySQLBoekingsOverzicht() {
+        return mySQLBoekingsOverzicht;
+    }
+
+    public static MySQLAccommodatie getMySQLAccommodatie() {
+        return mySQLAccommodatie;
+    }
+
+    public static MongoReizigers getMongoDBReizigers() {
+        return mongoDBReizigers;
+    }
 
     @Override
     public void start(Stage stage) {

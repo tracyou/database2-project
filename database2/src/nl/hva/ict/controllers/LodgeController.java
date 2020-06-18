@@ -26,12 +26,12 @@ public class LodgeController extends Controller {
 
     private void loadData(){
         //haal de waardes op uit de database
-        lodges = FXCollections.observableArrayList(MainApplication.getMySQLLodges().getAll());
+        lodges = FXCollections.observableArrayList(MainApplication.getMySQLLodge().getAll());
         lodgeView.getLodgeViewListView().setItems(lodges);
     }
 
     private void refreshData(){
-        MainApplication.getMySQLLodges().reload();
+        MainApplication.getMySQLLodge().reload();
     }
 
     private void save(){
@@ -39,8 +39,10 @@ public class LodgeController extends Controller {
     }
 
     private void delete(){
-        // delete dit record
+        Lodge currentLogde = lodgeView.getLodgeViewListView().getSelectionModel().getSelectedItem();
+        MainApplication.getMySQLLodge().remove(currentLogde);
     }
+
 
     private void insert(){
         //Voeg toe
@@ -54,7 +56,7 @@ public class LodgeController extends Controller {
         lodgeView.getTxtLand().setText(currentLodge.getLand());
         lodgeView.getTxtKamertype().setText(currentLodge.getKamer());
         lodgeView.getTxtPrijsPerWeek().setText(currentLodge.getPrijsPerWeek());
-        lodgeView.getTxtAantalPersonen().setText(currentLodge.getPersonen());
+        lodgeView.getTxtAantalPersonen().setText(String.valueOf(currentLodge.getPersonen()));
         lodgeView.getCheckAutohuur().setText(currentLodge.getAutoHuur());
     }
 

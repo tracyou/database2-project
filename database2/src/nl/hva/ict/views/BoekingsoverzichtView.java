@@ -26,4 +26,8 @@ public class BoekingsoverzichtView extends View {
     public Parent getRoot() {
         return rootPane;
     }
+
+    public ListView<BoekingsOverzicht> getBoekingsOverzichtListView() {
+        return boekingsOverzichtListView;
+    }
 }

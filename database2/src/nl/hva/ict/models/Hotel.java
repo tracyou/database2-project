@@ -4,66 +4,19 @@ import nl.hva.ict.data.Identifable;
 
 import java.io.Serializable;
 
-public class Hotel implements Identifable, Serializable {
-    private String accommodatieCode;
-    private String naam;
-    private String stad;
-    private String land;
-    private String kamer;
+public class Hotel extends Accommodatie implements Identifable, Serializable {
+
     private double prijsPerNacht;
-    private int personen;
     private String ontbijt;
 
-    public Hotel(String accommodatieCode, String naam, String stad, String land, String kamer,
-                 double prijsPerNacht, int personen, String ontbijt) {
-        this.accommodatieCode = accommodatieCode;
-        this.naam = naam;
-        this.stad = stad;
-        this.land = land;
-        this.kamer = kamer;
+    public Hotel(String accommodatieCode, String naam, String stad, String land, String kamer, int personen, String soort, double prijsPerNacht, String ontbijt) {
+        super(accommodatieCode, naam, stad, land, kamer, personen, soort);
         this.prijsPerNacht = prijsPerNacht;
-        this.personen = personen;
         this.ontbijt = ontbijt;
     }
 
-    public String getAccommodatieCode() {
-        return accommodatieCode;
-    }
+    public Hotel() {
 
-    public void setAccommodatieCode(String accommodatieCode) {
-        this.accommodatieCode = accommodatieCode;
-    }
-
-    public String getNaam() {
-        return naam;
-    }
-
-    public void setNaam(String naam) {
-        this.naam = naam;
-    }
-
-    public String getStad() {
-        return stad;
-    }
-
-    public void setStad(String stad) {
-        this.stad = stad;
-    }
-
-    public String getLand() {
-        return land;
-    }
-
-    public void setLand(String land) {
-        this.land = land;
-    }
-
-    public String getKamer() {
-        return kamer;
-    }
-
-    public void setKamer(String kamer) {
-        this.kamer = kamer;
     }
 
     public String getPrijsPerNacht() {
@@ -74,13 +27,6 @@ public class Hotel implements Identifable, Serializable {
         this.prijsPerNacht = prijsPerNacht;
     }
 
-    public String getPersonen() {
-        return String.valueOf(personen);
-    }
-
-    public void setPersonen(int personen) {
-        this.personen = personen;
-    }
 
     public String getOntbijt() {
         return ontbijt;
@@ -90,8 +36,4 @@ public class Hotel implements Identifable, Serializable {
         this.ontbijt = ontbijt;
     }
 
-    @Override
-    public String toString() {
-        return "Hotel:" + accommodatieCode + " " + naam + " " + stad;
-    }
 }
