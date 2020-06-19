@@ -120,7 +120,7 @@ public class MySQLBoekingsOverzicht extends MySQL<BoekingsOverzicht> {
         List<Reiziger> geboektOp = new ArrayList<>();
         Date date = java.sql.Date.valueOf(pDatum);
 
-        String sql ="{call geboekt op('"+ pDatum + "', '@"+pCode+"')}";
+        String sql = "SELECT GeboektOp('" + pCode + "', '" + pDatum + "') AS reiziger_id";
 
         try {
             PreparedStatement ps = getStatement(sql);

@@ -45,8 +45,8 @@ public class MongoReizigers extends MongoDB {
 
     public Reiziger getOneReizigers(String reizigersId){
         this.selectedCollection("reizigers");
-        Document myDoc = collection.find(Filters.eq("reizigerscode", reizigersId)).first();
-        String reizigerCode = (String)myDoc.get("reizigerCode");
+        Document myDoc = collection.find(Filters.eq("reizigersCode", reizigersId)).first();
+        String reizigerCode = (String)myDoc.get("reizigersCode");
         String voornaam = (String)myDoc.get("voornaam");
         String achternaam = (String)myDoc.get("achternaam");
         String adres = (String)myDoc.get("adres");
@@ -65,7 +65,7 @@ public class MongoReizigers extends MongoDB {
             while (cursor.hasNext()) {
 
                 Document tempReiziger = cursor.next();
-                String reizigerCode = (String)tempReiziger.get("reizigerCode");
+                String reizigerCode = (String)tempReiziger.get("reizigersCode");
                 String voornaam = (String)tempReiziger.get("voornaam");
                 String achternaam = (String)tempReiziger.get("achternaam");
                 String adres = (String)tempReiziger.get("adres");

@@ -33,7 +33,7 @@ CREATE TABLE `accomodatie` (
   `personen` int(11) NOT NULL,
   `soort` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`accomodatieCode`),
-  CONSTRAINT `rexexpCode` CHECK (regex(`accomodatieCode`, '^....[0-9]$'))
+  CONSTRAINT `rexexpCode` CHECK (regexp_like(`accomodatieCode`, '^....[0-9]$'))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -192,7 +192,7 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'big_five_safari'
 --
-/*!50003 DROP PROCEDURE IF EXISTS `geboektOp` */;
+/*!50003 DROP FUNCTION IF EXISTS `GeboektOp` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -202,11 +202,19 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `geboektOp`(IN pDatum DATE, OUT pCode VARCHAR(100))
+CREATE DEFINER=`root`@`localhost` FUNCTION `GeboektOp`(pCode VARCHAR(50), pDatum DATE) RETURNS varchar(50) CHARSET utf8
 BEGIN
-
-SET pCode =(SELECT reizigersCode FROM reservering 
-WHERE aankomstDatum >= pDatum AND vertrekDatum <= pDatum);
+DECLARE reizigersCode varchar(50) DEFAULT NULL;
+	SELECT reiziger_code into reizigersCode
+    FROM big_five_safari.reservering
+	WHERE accomodatieCode = pCode AND aankomstDatum = pDatum;
+    
+    IF reizigersCode is null
+    THEN return null;
+    ELSE
+    return reizigersCode;
+    
+    end if;
 
 END ;;
 DELIMITER ;
@@ -265,4 +273,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-06-19 13:14:55
+-- Dump completed on 2020-06-19 22:42:18
